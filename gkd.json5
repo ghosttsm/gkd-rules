@@ -4,7 +4,7 @@
 {
   id: 860412,          // 订阅唯一标识，GKD 靠它认人。定了就不要改，改了会变成另一个订阅
   name: 'ghost 自制规则',
-  version: 2,
+  version: 3,
   author: 'ghosttsm',
 
   // 设备定时请求这个地址检测更新。
