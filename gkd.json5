@@ -3,14 +3,17 @@
 // 改完规则后，必须把下面的 version 加 1，否则设备不会更新
 //
 // ===== 处理策略（2026-11-04 用户定的四条）=====
-// 1. 银行类应用一律不管：见每个全局组的 apps 排除块
+// 1. 银行类应用一律不管：见每条规则的 apps 排除块（enable:false），共 20 个银行包名
 // 2. 所有提示更新的弹窗：一律选"不更新"
 // 3. 所有营销/领奖弹窗：一律不领取，只关闭
 // 4. 所有要定位的弹窗：一律不允许
+//
+// 注意：银行排除必须写在**每条规则**的 apps 上。
+// 写在规则组级别（group.apps）GKD 不识别，实测银行应用仍会计入全部全局组。
 {
   id: 860412,          // 订阅唯一标识，GKD 靠它认人。定了就不要改，改了会变成另一个订阅
   name: 'ghost 自制规则',
-  version: 7,
+  version: 8,
   author: 'ghosttsm',
 
   // 设备定时请求这个地址检测更新。
@@ -31,35 +34,11 @@
       actionMaximum: 1,
       // 启动新应用时重置上面的计数
       resetMatch: 'app',
-      // 银行类：一律不处理（用户要求）。enable:false 让本组在这些应用上完全不匹配
-      matchAnyApp: true,
-      apps: [
-        { id: 'cmb.pb', enable: false },
-        { id: 'com.alipay.antbank.hk.portal', enable: false },
-        { id: 'com.android.bankabc', enable: false },
-        { id: 'com.bankcomm.Bankcomm', enable: false },
-        { id: 'com.bochk.app.aos', enable: false },
-        { id: 'com.cebbank.mobile.cemb', enable: false },
-        { id: 'com.chinamworld.bocmbci', enable: false },
-        { id: 'com.chinamworld.main', enable: false },
-        { id: 'com.ecitic.bank.mobile', enable: false },
-        { id: 'com.hnnx.mmbank', enable: false },
-        { id: 'com.hnnx.pmbank', enable: false },
-        { id: 'com.hxb.mobile.client', enable: false },
-        { id: 'com.icbc', enable: false },
-        { id: 'com.pingan.paces.ccms', enable: false },
-        { id: 'com.unionpay', enable: false },
-        { id: 'com.unionpay.tsmservice', enable: false },
-        { id: 'com.yitong.mbank.psbc', enable: false },
-        { id: 'com.zhongan.ibank', enable: false },
-        { id: 'com.zzbank.pibp', enable: false },
-        { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false },
-      ],
       rules: [
-        // 跳过按钮的文字特征：含"跳过"、字数很短、当前可见
-        { key: 0, matches: '[text*="跳过"][text.length<10][visibleToUser=true]' },
+        // 跳过按钮的文字特征：含跳过、字数很短、当前可见
+        { key: 0, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text*="跳过"][text.length<10][visibleToUser=true]' },
         // 部分应用写成"跳过广告"
-        { key: 1, matches: '[text*="跳过广告"][visibleToUser=true]' },
+        { key: 1, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text*="跳过广告"][visibleToUser=true]' },
       ],
     },
 
@@ -71,42 +50,17 @@
       actionMaximum: 2,
       actionCd: 1500,
       resetMatch: 'app',
-      // 银行类：一律不处理（用户要求）。enable:false 让本组在这些应用上完全不匹配
-      matchAnyApp: true,
-      apps: [
-        { id: 'cmb.pb', enable: false },
-        { id: 'com.alipay.antbank.hk.portal', enable: false },
-        { id: 'com.android.bankabc', enable: false },
-        { id: 'com.bankcomm.Bankcomm', enable: false },
-        { id: 'com.bochk.app.aos', enable: false },
-        { id: 'com.cebbank.mobile.cemb', enable: false },
-        { id: 'com.chinamworld.bocmbci', enable: false },
-        { id: 'com.chinamworld.main', enable: false },
-        { id: 'com.ecitic.bank.mobile', enable: false },
-        { id: 'com.hnnx.mmbank', enable: false },
-        { id: 'com.hnnx.pmbank', enable: false },
-        { id: 'com.hxb.mobile.client', enable: false },
-        { id: 'com.icbc', enable: false },
-        { id: 'com.pingan.paces.ccms', enable: false },
-        { id: 'com.unionpay', enable: false },
-        { id: 'com.unionpay.tsmservice', enable: false },
-        { id: 'com.yitong.mbank.psbc', enable: false },
-        { id: 'com.zhongan.ibank', enable: false },
-        { id: 'com.zzbank.pibp', enable: false },
-        { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false },
-      ],
       rules: [
-        // 主力规则：以"暂不"开头的按钮，且长度很短。
-        // 覆盖 暂不升级 / 暂不更新 / 暂不使用 / 暂不开启 / 暂不允许 等全部拒绝语义
-        { key: 0, matches: '[text*="暂不"][text.length<8][clickable=true][visibleToUser=true]' },
-        { key: 1, matches: '[text="忽略此版本"][clickable=true][visibleToUser=true]' },
-        { key: 2, matches: '[text="跳过此版本"][clickable=true][visibleToUser=true]' },
-        { key: 3, matches: '[text="以后更新"][clickable=true][visibleToUser=true]' },
-        { key: 4, matches: '[text="以后再说"][clickable=true][visibleToUser=true]' },
-        { key: 5, matches: '[text="稍后再说"][clickable=true][visibleToUser=true]' },
-        { key: 6, matches: '[text="下次再说"][clickable=true][visibleToUser=true]' },
-        { key: 7, matches: '[text="稍后提醒"][clickable=true][visibleToUser=true]' },
-        { key: 8, matches: '[text="不更新"][clickable=true][visibleToUser=true]' },
+        // 主力：暂不升级/暂不更新/暂不使用/暂不开启 等全部拒绝语义
+        { key: 0, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text*="暂不"][text.length<8][clickable=true][visibleToUser=true]' },
+        { key: 1, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="忽略此版本"][clickable=true][visibleToUser=true]' },
+        { key: 2, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="跳过此版本"][clickable=true][visibleToUser=true]' },
+        { key: 3, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="以后更新"][clickable=true][visibleToUser=true]' },
+        { key: 4, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="以后再说"][clickable=true][visibleToUser=true]' },
+        { key: 5, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="稍后再说"][clickable=true][visibleToUser=true]' },
+        { key: 6, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="下次再说"][clickable=true][visibleToUser=true]' },
+        { key: 7, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="稍后提醒"][clickable=true][visibleToUser=true]' },
+        { key: 8, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="不更新"][clickable=true][visibleToUser=true]' },
       ],
     },
 
@@ -117,38 +71,14 @@
       // 语义上等于永久不给定位；哪天某应用要开定位，得单独删掉这条。
       actionMaximum: 1,
       resetMatch: 'app',
-      // 银行类：一律不处理（用户要求）。enable:false 让本组在这些应用上完全不匹配
-      matchAnyApp: true,
-      apps: [
-        { id: 'cmb.pb', enable: false },
-        { id: 'com.alipay.antbank.hk.portal', enable: false },
-        { id: 'com.android.bankabc', enable: false },
-        { id: 'com.bankcomm.Bankcomm', enable: false },
-        { id: 'com.bochk.app.aos', enable: false },
-        { id: 'com.cebbank.mobile.cemb', enable: false },
-        { id: 'com.chinamworld.bocmbci', enable: false },
-        { id: 'com.chinamworld.main', enable: false },
-        { id: 'com.ecitic.bank.mobile', enable: false },
-        { id: 'com.hnnx.mmbank', enable: false },
-        { id: 'com.hnnx.pmbank', enable: false },
-        { id: 'com.hxb.mobile.client', enable: false },
-        { id: 'com.icbc', enable: false },
-        { id: 'com.pingan.paces.ccms', enable: false },
-        { id: 'com.unionpay', enable: false },
-        { id: 'com.unionpay.tsmservice', enable: false },
-        { id: 'com.yitong.mbank.psbc', enable: false },
-        { id: 'com.zhongan.ibank', enable: false },
-        { id: 'com.zzbank.pibp', enable: false },
-        { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false },
-      ],
       rules: [
-        { key: 0, matches: '[text="暂不开启"][clickable=true][visibleToUser=true]' },
-        { key: 1, matches: '[text="暂不允许"][clickable=true][visibleToUser=true]' },
-        { key: 2, matches: '[text="不允许"][clickable=true][visibleToUser=true]' },
-        { key: 3, matches: '[text="拒绝"][clickable=true][visibleToUser=true]' },
-        { key: 4, matches: '[text="以后再说"][clickable=true][visibleToUser=true]' },
-        // 知乎那类把两个按钮都做成固定 id 的，按 id 兜底
-        { key: 5, matches: '[vid="location_permission_not_now"]' },
+        { key: 0, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="暂不开启"][clickable=true][visibleToUser=true]' },
+        { key: 1, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="暂不允许"][clickable=true][visibleToUser=true]' },
+        { key: 2, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="不允许"][clickable=true][visibleToUser=true]' },
+        { key: 3, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="拒绝"][clickable=true][visibleToUser=true]' },
+        { key: 4, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="以后再说"][clickable=true][visibleToUser=true]' },
+        // 知乎那类把拒绝按钮写成固定 id 的，按 id 兜底
+        { key: 5, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[vid="location_permission_not_now"]' },
       ],
     },
 
@@ -159,38 +89,14 @@
       // 这里收的是放弃类按钮文字，不含"立即领取""去使用"这类会造成真实行为的目标。
       actionMaximum: 2,
       resetMatch: 'app',
-      // 银行类：一律不处理（用户要求）。enable:false 让本组在这些应用上完全不匹配
-      matchAnyApp: true,
-      apps: [
-        { id: 'cmb.pb', enable: false },
-        { id: 'com.alipay.antbank.hk.portal', enable: false },
-        { id: 'com.android.bankabc', enable: false },
-        { id: 'com.bankcomm.Bankcomm', enable: false },
-        { id: 'com.bochk.app.aos', enable: false },
-        { id: 'com.cebbank.mobile.cemb', enable: false },
-        { id: 'com.chinamworld.bocmbci', enable: false },
-        { id: 'com.chinamworld.main', enable: false },
-        { id: 'com.ecitic.bank.mobile', enable: false },
-        { id: 'com.hnnx.mmbank', enable: false },
-        { id: 'com.hnnx.pmbank', enable: false },
-        { id: 'com.hxb.mobile.client', enable: false },
-        { id: 'com.icbc', enable: false },
-        { id: 'com.pingan.paces.ccms', enable: false },
-        { id: 'com.unionpay', enable: false },
-        { id: 'com.unionpay.tsmservice', enable: false },
-        { id: 'com.yitong.mbank.psbc', enable: false },
-        { id: 'com.zhongan.ibank', enable: false },
-        { id: 'com.zzbank.pibp', enable: false },
-        { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false },
-      ],
       rules: [
-        { key: 0, matches: '[text="残忍离开"][clickable=true][visibleToUser=true]' },
-        { key: 1, matches: '[text="放弃奖励"][clickable=true][visibleToUser=true]' },
-        { key: 2, matches: '[text="不感兴趣"][clickable=true][visibleToUser=true]' },
-        { key: 3, matches: '[text="我再想想"][clickable=true][visibleToUser=true]' },
-        { key: 4, matches: '[text="暂不需要"][clickable=true][visibleToUser=true]' },
-        { key: 5, matches: '[text="暂不购买"][clickable=true][visibleToUser=true]' },
-        { key: 6, matches: '[text="我知道了"][clickable=true][visibleToUser=true]' },
+        { key: 0, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="残忍离开"][clickable=true][visibleToUser=true]' },
+        { key: 1, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="放弃奖励"][clickable=true][visibleToUser=true]' },
+        { key: 2, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="不感兴趣"][clickable=true][visibleToUser=true]' },
+        { key: 3, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="我再想想"][clickable=true][visibleToUser=true]' },
+        { key: 4, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="暂不需要"][clickable=true][visibleToUser=true]' },
+        { key: 5, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="暂不购买"][clickable=true][visibleToUser=true]' },
+        { key: 6, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="我知道了"][clickable=true][visibleToUser=true]' },
       ],
     },
 
@@ -203,37 +109,13 @@
       actionMaximum: 2,
       actionCd: 1200,
       resetMatch: 'app',
-      // 银行类：一律不处理（用户要求）。enable:false 让本组在这些应用上完全不匹配
-      matchAnyApp: true,
-      apps: [
-        { id: 'cmb.pb', enable: false },
-        { id: 'com.alipay.antbank.hk.portal', enable: false },
-        { id: 'com.android.bankabc', enable: false },
-        { id: 'com.bankcomm.Bankcomm', enable: false },
-        { id: 'com.bochk.app.aos', enable: false },
-        { id: 'com.cebbank.mobile.cemb', enable: false },
-        { id: 'com.chinamworld.bocmbci', enable: false },
-        { id: 'com.chinamworld.main', enable: false },
-        { id: 'com.ecitic.bank.mobile', enable: false },
-        { id: 'com.hnnx.mmbank', enable: false },
-        { id: 'com.hnnx.pmbank', enable: false },
-        { id: 'com.hxb.mobile.client', enable: false },
-        { id: 'com.icbc', enable: false },
-        { id: 'com.pingan.paces.ccms', enable: false },
-        { id: 'com.unionpay', enable: false },
-        { id: 'com.unionpay.tsmservice', enable: false },
-        { id: 'com.yitong.mbank.psbc', enable: false },
-        { id: 'com.zhongan.ibank', enable: false },
-        { id: 'com.zzbank.pibp', enable: false },
-        { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false },
-      ],
       rules: [
-        { key: 0, matches: '[vid="iv_close"][clickable=true][visibleToUser=true]' },
-        { key: 1, matches: '[vid="img_close"][clickable=true][visibleToUser=true]' },
-        { key: 2, matches: '[vid="btn_close"][clickable=true][visibleToUser=true]' },
-        { key: 3, matches: '[vid="close"][clickable=true][visibleToUser=true]' },
-        { key: 4, matches: '[desc="关闭"][clickable=true][visibleToUser=true]' },
-        { key: 5, matches: '[text="关闭"][clickable=true][visibleToUser=true]' },
+        { key: 0, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[vid="iv_close"][clickable=true][visibleToUser=true]' },
+        { key: 1, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[vid="img_close"][clickable=true][visibleToUser=true]' },
+        { key: 2, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[vid="btn_close"][clickable=true][visibleToUser=true]' },
+        { key: 3, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[vid="close"][clickable=true][visibleToUser=true]' },
+        { key: 4, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[desc="关闭"][clickable=true][visibleToUser=true]' },
+        { key: 5, apps: [{ id: 'cmb.pb', enable: false }, { id: 'com.alipay.antbank.hk.portal', enable: false }, { id: 'com.android.bankabc', enable: false }, { id: 'com.bankcomm.Bankcomm', enable: false }, { id: 'com.bochk.app.aos', enable: false }, { id: 'com.cebbank.mobile.cemb', enable: false }, { id: 'com.chinamworld.bocmbci', enable: false }, { id: 'com.chinamworld.main', enable: false }, { id: 'com.ecitic.bank.mobile', enable: false }, { id: 'com.hnnx.mmbank', enable: false }, { id: 'com.hnnx.pmbank', enable: false }, { id: 'com.hxb.mobile.client', enable: false }, { id: 'com.icbc', enable: false }, { id: 'com.pingan.paces.ccms', enable: false }, { id: 'com.unionpay', enable: false }, { id: 'com.unionpay.tsmservice', enable: false }, { id: 'com.yitong.mbank.psbc', enable: false }, { id: 'com.zhongan.ibank', enable: false }, { id: 'com.zzbank.pibp', enable: false }, { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false }], matches: '[text="关闭"][clickable=true][visibleToUser=true]' },
       ],
     },
   ],
