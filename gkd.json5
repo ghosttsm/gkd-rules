@@ -4,7 +4,7 @@
 {
   id: 860412,          // 订阅唯一标识，GKD 靠它认人。定了就不要改，改了会变成另一个订阅
   name: 'ghost 自制规则',
-  version: 3,
+  version: 4,
   author: 'ghosttsm',
 
   // 设备定时请求这个地址检测更新。
@@ -55,6 +55,28 @@
       ],
     },
 
+    {
+      id: 'com.zhihu.android',
+      name: '知乎',
+      groups: [
+        {
+          key: 0,
+          name: '位置权限引导',
+          // 这是权限引导弹窗，不是广告。出现时机不固定在启动瞬间，
+          // 所以不设 matchTime，改用 actionMaximum 限制每次进入应用最多点一次
+          actionMaximum: 1,
+          resetMatch: 'app',
+          rules: [
+            // 主选择器：2026-11 版本实测，按钮的 resource-id 短名固定
+            // 弹窗文案：「获得更好的使用体验 / 请允许使用位置信息…」
+            { key: 0, matches: '[vid="location_permission_not_now"]' },
+            // 兜底：改版换了 id 时按文字点，作用是拒绝授权而不是给权限
+            { key: 1, matches: '[text="暂不开启"][clickable=true][visibleToUser=true]' },
+          ],
+        },
+      ],
+    },
+
     // 新应用模板：复制这段，取消注释，填包名和选择器
     // {
     //   id: 'com.example.app',        // 包名，pm list packages 或 GKD 应用详情能看到
@@ -71,4 +93,27 @@
     //   ],
     // },
   ],
+
+  // ===== 待办：淘宝营销弹窗（2026-11-04 抓到特征，暂未启用）=====
+  // 现象1：冷启动时弹「双11品类周 · 5元红包」大卡片（居中，下方灰色圆形 ×）
+  // 现象2：首页底部常驻横幅「您有5元无门槛惊喜红包 [去使用] [×]」
+  // 特征：关闭叉是 91x91 的容器，位置 (1122,2312)，容器内文字是图标字体字符 "뉜"，
+  //       没有 vid，也没有可读的 desc，只能靠这个字符定位
+  // 启用方式：取消下面整段的注释，并移进上面的 apps 数组
+  //
+  // {
+  //   id: 'com.taobao.taobao',
+  //   name: '淘宝',
+  //   groups: [
+  //     {
+  //       key: 0,
+  //       name: '营销弹窗',
+  //       actionMaximum: 1,
+  //       resetMatch: 'app',
+  //       rules: [
+  //         { key: 0, matches: '[text="뉜"][clickable=true]' },
+  //       ],
+  //     },
+  //   ],
+  // },
 }
