@@ -4,17 +4,11 @@
 
 ## 订阅地址
 
-优先用 Gitee（国内手机直连稳定）：
-
-```
-https://gitee.com/ghosttsm/gkd-rules/raw/main/gkd.json5
-```
-
-GitHub 备用：
-
 ```
 https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5
 ```
+
+Gitee 镜像待建立，建好后加在下面（国内手机直连更稳）。
 
 GKD 里添加：首页 → 订阅 → 右上角 `+` → 远程订阅 → 粘贴链接。
 
