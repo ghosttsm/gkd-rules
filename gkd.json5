@@ -4,7 +4,7 @@
 {
   id: 860412,          // 订阅唯一标识，GKD 靠它认人。定了就不要改，改了会变成另一个订阅
   name: 'ghost 自制规则',
-  version: 4,
+  version: 5,
   author: 'ghosttsm',
 
   // 设备定时请求这个地址检测更新。
@@ -29,6 +29,25 @@
         { key: 0, matches: '[text*="跳过"][text.length<10][visibleToUser=true]' },
         // 部分应用写成"跳过广告"
         { key: 1, matches: '[text*="跳过广告"][visibleToUser=true]' },
+      ],
+    },
+
+    {
+      key: 1,
+      name: '应用内弹窗-确认关闭',
+      // 来源：2026-11-04 对 320 个已安装应用做冷启动复测，
+      // 只开第三方订阅（梦念逍遥 v79）时仍然弹出来的那批弹窗，
+      // 逐个取文本证据后筛出的通用按钮文案。
+      // 原则：只放"关闭/稍后/我知道了"这类不触发任何业务动作的按钮，
+      //       绝不放"同意""允许""立即升级""立即领取"这类会改变状态或产生后续行为的文字。
+      // 说明：第三方订阅是按应用逐个写的，这里补的是它漏掉的通用文案，属于兜底而不是重复。
+      rules: [
+        { key: 0, matches: '[text="我知道了"][clickable=true][visibleToUser=true]' },
+        { key: 1, matches: '[text="以后再说"][clickable=true][visibleToUser=true]' },
+        { key: 2, matches: '[text="稍后再说"][clickable=true][visibleToUser=true]' },
+        { key: 3, matches: '[text="暂不升级"][clickable=true][visibleToUser=true]' },
+        { key: 4, matches: '[text="暂不更新"][clickable=true][visibleToUser=true]' },
+        { key: 5, matches: '[text="暂不使用"][clickable=true][visibleToUser=true]' },
       ],
     },
   ],
