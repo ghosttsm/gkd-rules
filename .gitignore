@@ -1,0 +1,13 @@
+# 系统
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 编辑器
+.vscode/
+.idea/
+
+# 本地草稿，不推送到远程
+*.bak
+*.tmp
+scratch/

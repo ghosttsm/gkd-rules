@@ -1,0 +1,52 @@
+// GKD 订阅文件 —— 自制规则，多设备共用
+// 语法：JSON5（支持注释、单引号、尾逗号）
+// 改完规则后，必须把下面的 version 加 1，否则设备不会更新
+{
+  id: 860412,          // 订阅唯一标识，GKD 靠它认人。定了就不要改，改了会变成另一个订阅
+  name: 'ghost 自制规则',
+  version: 1,
+  author: 'ghosttsm',
+
+  // 设备定时请求这个地址检测更新；不填则用添加订阅时填的链接
+  updateUrl: 'https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5',
+  checkUpdateUrl: 'https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5',
+
+  // 全局规则：不分应用，靠选择器通杀。适合开屏广告这种各家长得都一样的场景
+  globalGroups: [
+    {
+      key: 0,
+      name: '开屏广告',
+      // 应用启动后只在这个时间窗内匹配，避免误伤应用内正常内容
+      matchTime: 10000,
+      // 每个应用只执行 1 次
+      actionMaximum: 1,
+      // 启动新应用时重置上面的计数
+      resetMatch: 'app',
+      rules: [
+        // 跳过按钮的文字特征：含"跳过"、字数很短、当前可见
+        { key: 0, matches: '[text*="跳过"][text.length<10][visibleToUser=true]' },
+        // 部分应用写成"跳过广告"
+        { key: 1, matches: '[text*="跳过广告"][visibleToUser=true]' },
+      ],
+    },
+  ],
+
+  // 应用规则：按包名精确指定，比全局规则更安全
+  // 加规则的方式见 README，下面留一个注释模板
+  apps: [
+    // {
+    //   id: 'com.example.app',        // 包名，用 GKD 的快照审查或"应用详情"能看到
+    //   name: '某应用',
+    //   groups: [
+    //     {
+    //       key: 0,
+    //       name: '开屏广告',
+    //       activityIds: 'com.example.app.SplashActivity',  // 可省略；写上能避免误触
+    //       rules: [
+    //         { key: 0, matches: '[vid="skip_btn"]', actionMaximum: 1, resetMatch: 'app' },
+    //       ],
+    //     },
+    //   ],
+    // },
+  ],
+}
