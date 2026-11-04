@@ -4,12 +4,14 @@
 {
   id: 860412,          // 订阅唯一标识，GKD 靠它认人。定了就不要改，改了会变成另一个订阅
   name: 'ghost 自制规则',
-  version: 1,
+  version: 2,
   author: 'ghosttsm',
 
-  // 设备定时请求这个地址检测更新；不填则用添加订阅时填的链接
-  updateUrl: 'https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5',
-  checkUpdateUrl: 'https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5',
+  // 设备定时请求这个地址检测更新。
+  // 手机在国内直连 raw.githubusercontent.com 会超时（实测 15s 无响应），所以走 ghfast.top 镜像。
+  // 镜像失效时换成 cdn.jsdelivr.net 那条，见 README。
+  updateUrl: 'https://ghfast.top/https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5',
+  checkUpdateUrl: 'https://ghfast.top/https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5',
 
   // 全局规则：不分应用，靠选择器通杀。适合开屏广告这种各家长得都一样的场景
   globalGroups: [
@@ -32,10 +34,30 @@
   ],
 
   // 应用规则：按包名精确指定，比全局规则更安全
-  // 加规则的方式见 README，下面留一个注释模板
   apps: [
+    {
+      id: 'gov.pianzong.androidnga',
+      name: 'NGA玩家社区',
+      groups: [
+        {
+          key: 0,
+          name: '开屏广告',
+          actionMaximum: 1,
+          matchTime: 15000,
+          resetMatch: 'app',
+          rules: [
+            // 精确匹配：首选。2026-11 NGA 版本的开屏跳过按钮
+            { key: 0, matches: '[vid="tv_skip"]' },
+            // 文本兜底：App 改版换了 id 仍能命中
+            { key: 1, matches: '[text*="跳过"][text.length<10][clickable=true]' },
+          ],
+        },
+      ],
+    },
+
+    // 新应用模板：复制这段，取消注释，填包名和选择器
     // {
-    //   id: 'com.example.app',        // 包名，用 GKD 的快照审查或"应用详情"能看到
+    //   id: 'com.example.app',        // 包名，pm list packages 或 GKD 应用详情能看到
     //   name: '某应用',
     //   groups: [
     //     {
