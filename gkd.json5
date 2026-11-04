@@ -15,7 +15,7 @@
 {
   id: 860412,          // 订阅唯一标识，GKD 靠它认人。定了就不要改，改了会变成另一个订阅
   name: 'ghost 自制规则',
-  version: 9,
+  version: 10,
   author: 'ghosttsm',
 
   // 设备定时请求这个地址检测更新。
@@ -157,14 +157,17 @@
         {
           key: 0,
           name: '营销弹窗',
-          // 2026-11-04 实测抓到的特征：那个灰色圆形 × 是 91x91 的 View 容器，
-          // 没有 vid、没有可读 desc，容器里的文字是图标字体字符 "뉜"。
+          // 2026-11-04 实测抓到的特征：那个灰色圆形 × 是 91x91 的 FrameLayout，
+          // 没有 vid、没有可读 desc，内部唯一的文字是图标字体字符 "뉜"。
           // 这是目前唯一能稳定定位它的方式。
-          actionMaximum: 2,
-          actionCd: 1500,
+          actionMaximum: 3,
+          actionCd: 2000,
           resetMatch: 'app',
           rules: [
-            { key: 0, matches: '[text="뉜"][clickable=true][visibleToUser=true]' },
+            // 关键：这个字符所在的 TextView 自身不可点击，可点击的是外面 91x91 的父容器，
+            // 所以这里绝不能加 clickable=true，加了就永远匹配不到。
+            // GKD 命中后会自动点击最近的可点击祖先节点。
+            { key: 0, matches: '[text="뉜"][visibleToUser=true]' },
           ],
         },
       ],
