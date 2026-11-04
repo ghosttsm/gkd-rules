@@ -15,7 +15,7 @@
 {
   id: 860412,          // 订阅唯一标识，GKD 靠它认人。定了就不要改，改了会变成另一个订阅
   name: 'ghost 自制规则',
-  version: 12,
+  version: 14,
   author: 'ghosttsm',
 
   // 设备定时请求这个地址检测更新。
@@ -168,6 +168,29 @@
             // 所以这里绝不能加 clickable=true，加了就永远匹配不到。
             // GKD 命中后会自动点击最近的可点击祖先节点。
             { key: 0, matches: '[text="뉜"][visibleToUser=true]' },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: 'com.hupu.games',
+      name: '虎扑',
+      groups: [
+        {
+          key: 108,
+          name: '开屏广告',
+          // 2026-11-04 实测节点（out/hupu/r1_16.xml）：
+          //   <TextView text="跳过广告" resource-id="com.hupu.games:id/tv_time"
+          //             clickable="true" bounds="[880,2351][1160,2465]" />
+          // 注意它在屏幕底部 y≈2400，不是常见的右上角。
+          // 广告是视频形态，界面持续刷新，GKD 未必每次都能拿到事件，命中率不稳定。
+          actionMaximum: 1,
+          matchTime: 20000,
+          resetMatch: 'app',
+          rules: [
+            { key: 0, matches: '[vid="tv_time"]' },
+            { key: 1, matches: '[text="跳过广告"][visibleToUser=true]' },
           ],
         },
       ],
