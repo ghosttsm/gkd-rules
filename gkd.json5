@@ -8,10 +8,10 @@
   author: 'ghosttsm',
 
   // 设备定时请求这个地址检测更新。
-  // 手机在国内直连 raw.githubusercontent.com 会超时（实测 15s 无响应），所以走 ghfast.top 镜像。
-  // 镜像失效时换成 cdn.jsdelivr.net 那条，见 README。
-  updateUrl: 'https://ghfast.top/https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5',
-  checkUpdateUrl: 'https://ghfast.top/https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5',
+  // 手机在国内直连 raw.githubusercontent.com 会超时（实测 15s 无响应），必须走镜像。
+  // gh-proxy.com 实测无缓存、推完立刻可见；ghfast.top 有缓存会滞后，别用。
+  updateUrl: 'https://gh-proxy.com/https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5',
+  checkUpdateUrl: 'https://gh-proxy.com/https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5',
 
   // 全局规则：不分应用，靠选择器通杀。适合开屏广告这种各家长得都一样的场景
   globalGroups: [
