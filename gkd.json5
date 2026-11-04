@@ -4,14 +4,15 @@
 {
   id: 860412,          // 订阅唯一标识，GKD 靠它认人。定了就不要改，改了会变成另一个订阅
   name: 'ghost 自制规则',
-  version: 5,
+  version: 6,
   author: 'ghosttsm',
 
   // 设备定时请求这个地址检测更新。
-  // 手机在国内直连 raw.githubusercontent.com 会超时（实测 15s 无响应），必须走镜像。
-  // gh-proxy.com 实测无缓存、推完立刻可见；ghfast.top 有缓存会滞后，别用。
-  updateUrl: 'https://gh-proxy.com/https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5',
-  checkUpdateUrl: 'https://gh-proxy.com/https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5',
+  // 手机在国内直连 raw.githubusercontent.com 会超时，必须走镜像。
+  // 2026-11-04 18:10 实测：gh-proxy.com 已完全不通；ghfast.top 可用且为最新版；
+  // jsdelivr 缓存滞后严重（返回 v1），不可用。镜像会失效，换之前先实测三个再改这里。
+  updateUrl: 'https://ghfast.top/https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5',
+  checkUpdateUrl: 'https://ghfast.top/https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5',
 
   // 全局规则：不分应用，靠选择器通杀。适合开屏广告这种各家长得都一样的场景
   globalGroups: [
