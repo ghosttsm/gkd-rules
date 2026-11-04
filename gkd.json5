@@ -1,10 +1,16 @@
 // GKD 订阅文件 —— 自制规则，多设备共用
 // 语法：JSON5（支持注释、单引号、尾逗号）
 // 改完规则后，必须把下面的 version 加 1，否则设备不会更新
+//
+// ===== 处理策略（2026-11-04 用户定的四条）=====
+// 1. 银行类应用一律不管：见每个全局组的 apps 排除块
+// 2. 所有提示更新的弹窗：一律选"不更新"
+// 3. 所有营销/领奖弹窗：一律不领取，只关闭
+// 4. 所有要定位的弹窗：一律不允许
 {
   id: 860412,          // 订阅唯一标识，GKD 靠它认人。定了就不要改，改了会变成另一个订阅
   name: 'ghost 自制规则',
-  version: 6,
+  version: 7,
   author: 'ghosttsm',
 
   // 设备定时请求这个地址检测更新。
@@ -14,7 +20,7 @@
   updateUrl: 'https://ghfast.top/https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5',
   checkUpdateUrl: 'https://ghfast.top/https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5',
 
-  // 全局规则：不分应用，靠选择器通杀。适合开屏广告这种各家长得都一样的场景
+  // 全局规则：不分应用，靠选择器通杀。适合开屏广告、更新弹窗这类各家长得都一样的场景
   globalGroups: [
     {
       key: 0,
@@ -25,6 +31,30 @@
       actionMaximum: 1,
       // 启动新应用时重置上面的计数
       resetMatch: 'app',
+      // 银行类：一律不处理（用户要求）。enable:false 让本组在这些应用上完全不匹配
+      matchAnyApp: true,
+      apps: [
+        { id: 'cmb.pb', enable: false },
+        { id: 'com.alipay.antbank.hk.portal', enable: false },
+        { id: 'com.android.bankabc', enable: false },
+        { id: 'com.bankcomm.Bankcomm', enable: false },
+        { id: 'com.bochk.app.aos', enable: false },
+        { id: 'com.cebbank.mobile.cemb', enable: false },
+        { id: 'com.chinamworld.bocmbci', enable: false },
+        { id: 'com.chinamworld.main', enable: false },
+        { id: 'com.ecitic.bank.mobile', enable: false },
+        { id: 'com.hnnx.mmbank', enable: false },
+        { id: 'com.hnnx.pmbank', enable: false },
+        { id: 'com.hxb.mobile.client', enable: false },
+        { id: 'com.icbc', enable: false },
+        { id: 'com.pingan.paces.ccms', enable: false },
+        { id: 'com.unionpay', enable: false },
+        { id: 'com.unionpay.tsmservice', enable: false },
+        { id: 'com.yitong.mbank.psbc', enable: false },
+        { id: 'com.zhongan.ibank', enable: false },
+        { id: 'com.zzbank.pibp', enable: false },
+        { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false },
+      ],
       rules: [
         // 跳过按钮的文字特征：含"跳过"、字数很短、当前可见
         { key: 0, matches: '[text*="跳过"][text.length<10][visibleToUser=true]' },
@@ -35,20 +65,175 @@
 
     {
       key: 1,
-      name: '应用内弹窗-确认关闭',
-      // 来源：2026-11-04 对 320 个已安装应用做冷启动复测，
-      // 只开第三方订阅（梦念逍遥 v79）时仍然弹出来的那批弹窗，
-      // 逐个取文本证据后筛出的通用按钮文案。
-      // 原则：只放"关闭/稍后/我知道了"这类不触发任何业务动作的按钮，
-      //       绝不放"同意""允许""立即升级""立即领取"这类会改变状态或产生后续行为的文字。
-      // 说明：第三方订阅是按应用逐个写的，这里补的是它漏掉的通用文案，属于兜底而不是重复。
+      name: '更新弹窗-不更新',
+      // 策略 2：凡提示升级/更新的弹窗，一律选拒绝项，绝不点"立即升级"
+      // 不设 matchTime：更新弹窗既可能在启动时弹，也可能使用中弹
+      actionMaximum: 2,
+      actionCd: 1500,
+      resetMatch: 'app',
+      // 银行类：一律不处理（用户要求）。enable:false 让本组在这些应用上完全不匹配
+      matchAnyApp: true,
+      apps: [
+        { id: 'cmb.pb', enable: false },
+        { id: 'com.alipay.antbank.hk.portal', enable: false },
+        { id: 'com.android.bankabc', enable: false },
+        { id: 'com.bankcomm.Bankcomm', enable: false },
+        { id: 'com.bochk.app.aos', enable: false },
+        { id: 'com.cebbank.mobile.cemb', enable: false },
+        { id: 'com.chinamworld.bocmbci', enable: false },
+        { id: 'com.chinamworld.main', enable: false },
+        { id: 'com.ecitic.bank.mobile', enable: false },
+        { id: 'com.hnnx.mmbank', enable: false },
+        { id: 'com.hnnx.pmbank', enable: false },
+        { id: 'com.hxb.mobile.client', enable: false },
+        { id: 'com.icbc', enable: false },
+        { id: 'com.pingan.paces.ccms', enable: false },
+        { id: 'com.unionpay', enable: false },
+        { id: 'com.unionpay.tsmservice', enable: false },
+        { id: 'com.yitong.mbank.psbc', enable: false },
+        { id: 'com.zhongan.ibank', enable: false },
+        { id: 'com.zzbank.pibp', enable: false },
+        { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false },
+      ],
       rules: [
-        { key: 0, matches: '[text="我知道了"][clickable=true][visibleToUser=true]' },
-        { key: 1, matches: '[text="以后再说"][clickable=true][visibleToUser=true]' },
-        { key: 2, matches: '[text="稍后再说"][clickable=true][visibleToUser=true]' },
-        { key: 3, matches: '[text="暂不升级"][clickable=true][visibleToUser=true]' },
-        { key: 4, matches: '[text="暂不更新"][clickable=true][visibleToUser=true]' },
-        { key: 5, matches: '[text="暂不使用"][clickable=true][visibleToUser=true]' },
+        // 主力规则：以"暂不"开头的按钮，且长度很短。
+        // 覆盖 暂不升级 / 暂不更新 / 暂不使用 / 暂不开启 / 暂不允许 等全部拒绝语义
+        { key: 0, matches: '[text*="暂不"][text.length<8][clickable=true][visibleToUser=true]' },
+        { key: 1, matches: '[text="忽略此版本"][clickable=true][visibleToUser=true]' },
+        { key: 2, matches: '[text="跳过此版本"][clickable=true][visibleToUser=true]' },
+        { key: 3, matches: '[text="以后更新"][clickable=true][visibleToUser=true]' },
+        { key: 4, matches: '[text="以后再说"][clickable=true][visibleToUser=true]' },
+        { key: 5, matches: '[text="稍后再说"][clickable=true][visibleToUser=true]' },
+        { key: 6, matches: '[text="下次再说"][clickable=true][visibleToUser=true]' },
+        { key: 7, matches: '[text="稍后提醒"][clickable=true][visibleToUser=true]' },
+        { key: 8, matches: '[text="不更新"][clickable=true][visibleToUser=true]' },
+      ],
+    },
+
+    {
+      key: 2,
+      name: '位置权限-不允许',
+      // 策略 4：所有索要定位的引导弹窗一律拒绝。
+      // 语义上等于永久不给定位；哪天某应用要开定位，得单独删掉这条。
+      actionMaximum: 1,
+      resetMatch: 'app',
+      // 银行类：一律不处理（用户要求）。enable:false 让本组在这些应用上完全不匹配
+      matchAnyApp: true,
+      apps: [
+        { id: 'cmb.pb', enable: false },
+        { id: 'com.alipay.antbank.hk.portal', enable: false },
+        { id: 'com.android.bankabc', enable: false },
+        { id: 'com.bankcomm.Bankcomm', enable: false },
+        { id: 'com.bochk.app.aos', enable: false },
+        { id: 'com.cebbank.mobile.cemb', enable: false },
+        { id: 'com.chinamworld.bocmbci', enable: false },
+        { id: 'com.chinamworld.main', enable: false },
+        { id: 'com.ecitic.bank.mobile', enable: false },
+        { id: 'com.hnnx.mmbank', enable: false },
+        { id: 'com.hnnx.pmbank', enable: false },
+        { id: 'com.hxb.mobile.client', enable: false },
+        { id: 'com.icbc', enable: false },
+        { id: 'com.pingan.paces.ccms', enable: false },
+        { id: 'com.unionpay', enable: false },
+        { id: 'com.unionpay.tsmservice', enable: false },
+        { id: 'com.yitong.mbank.psbc', enable: false },
+        { id: 'com.zhongan.ibank', enable: false },
+        { id: 'com.zzbank.pibp', enable: false },
+        { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false },
+      ],
+      rules: [
+        { key: 0, matches: '[text="暂不开启"][clickable=true][visibleToUser=true]' },
+        { key: 1, matches: '[text="暂不允许"][clickable=true][visibleToUser=true]' },
+        { key: 2, matches: '[text="不允许"][clickable=true][visibleToUser=true]' },
+        { key: 3, matches: '[text="拒绝"][clickable=true][visibleToUser=true]' },
+        { key: 4, matches: '[text="以后再说"][clickable=true][visibleToUser=true]' },
+        // 知乎那类把两个按钮都做成固定 id 的，按 id 兜底
+        { key: 5, matches: '[vid="location_permission_not_now"]' },
+      ],
+    },
+
+    {
+      key: 3,
+      name: '营销弹窗-放弃领取',
+      // 策略 3：营销弹窗只走"放弃/关闭"分支，绝不点领取。
+      // 这里收的是放弃类按钮文字，不含"立即领取""去使用"这类会造成真实行为的目标。
+      actionMaximum: 2,
+      resetMatch: 'app',
+      // 银行类：一律不处理（用户要求）。enable:false 让本组在这些应用上完全不匹配
+      matchAnyApp: true,
+      apps: [
+        { id: 'cmb.pb', enable: false },
+        { id: 'com.alipay.antbank.hk.portal', enable: false },
+        { id: 'com.android.bankabc', enable: false },
+        { id: 'com.bankcomm.Bankcomm', enable: false },
+        { id: 'com.bochk.app.aos', enable: false },
+        { id: 'com.cebbank.mobile.cemb', enable: false },
+        { id: 'com.chinamworld.bocmbci', enable: false },
+        { id: 'com.chinamworld.main', enable: false },
+        { id: 'com.ecitic.bank.mobile', enable: false },
+        { id: 'com.hnnx.mmbank', enable: false },
+        { id: 'com.hnnx.pmbank', enable: false },
+        { id: 'com.hxb.mobile.client', enable: false },
+        { id: 'com.icbc', enable: false },
+        { id: 'com.pingan.paces.ccms', enable: false },
+        { id: 'com.unionpay', enable: false },
+        { id: 'com.unionpay.tsmservice', enable: false },
+        { id: 'com.yitong.mbank.psbc', enable: false },
+        { id: 'com.zhongan.ibank', enable: false },
+        { id: 'com.zzbank.pibp', enable: false },
+        { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false },
+      ],
+      rules: [
+        { key: 0, matches: '[text="残忍离开"][clickable=true][visibleToUser=true]' },
+        { key: 1, matches: '[text="放弃奖励"][clickable=true][visibleToUser=true]' },
+        { key: 2, matches: '[text="不感兴趣"][clickable=true][visibleToUser=true]' },
+        { key: 3, matches: '[text="我再想想"][clickable=true][visibleToUser=true]' },
+        { key: 4, matches: '[text="暂不需要"][clickable=true][visibleToUser=true]' },
+        { key: 5, matches: '[text="暂不购买"][clickable=true][visibleToUser=true]' },
+        { key: 6, matches: '[text="我知道了"][clickable=true][visibleToUser=true]' },
+      ],
+    },
+
+    {
+      key: 4,
+      name: '营销弹窗-点关闭叉',
+      // 策略 3 的另一半：营销弹窗通常只有右上角/底部的 ×，没有可读文字。
+      // 限定在启动后 25 秒内，避免在使用过程中误关正常的浮层或内容页。
+      matchTime: 25000,
+      actionMaximum: 2,
+      actionCd: 1200,
+      resetMatch: 'app',
+      // 银行类：一律不处理（用户要求）。enable:false 让本组在这些应用上完全不匹配
+      matchAnyApp: true,
+      apps: [
+        { id: 'cmb.pb', enable: false },
+        { id: 'com.alipay.antbank.hk.portal', enable: false },
+        { id: 'com.android.bankabc', enable: false },
+        { id: 'com.bankcomm.Bankcomm', enable: false },
+        { id: 'com.bochk.app.aos', enable: false },
+        { id: 'com.cebbank.mobile.cemb', enable: false },
+        { id: 'com.chinamworld.bocmbci', enable: false },
+        { id: 'com.chinamworld.main', enable: false },
+        { id: 'com.ecitic.bank.mobile', enable: false },
+        { id: 'com.hnnx.mmbank', enable: false },
+        { id: 'com.hnnx.pmbank', enable: false },
+        { id: 'com.hxb.mobile.client', enable: false },
+        { id: 'com.icbc', enable: false },
+        { id: 'com.pingan.paces.ccms', enable: false },
+        { id: 'com.unionpay', enable: false },
+        { id: 'com.unionpay.tsmservice', enable: false },
+        { id: 'com.yitong.mbank.psbc', enable: false },
+        { id: 'com.zhongan.ibank', enable: false },
+        { id: 'com.zzbank.pibp', enable: false },
+        { id: 'hk.com.hsbc.hsbchkmobilebanking', enable: false },
+      ],
+      rules: [
+        { key: 0, matches: '[vid="iv_close"][clickable=true][visibleToUser=true]' },
+        { key: 1, matches: '[vid="img_close"][clickable=true][visibleToUser=true]' },
+        { key: 2, matches: '[vid="btn_close"][clickable=true][visibleToUser=true]' },
+        { key: 3, matches: '[vid="close"][clickable=true][visibleToUser=true]' },
+        { key: 4, matches: '[desc="关闭"][clickable=true][visibleToUser=true]' },
+        { key: 5, matches: '[text="关闭"][clickable=true][visibleToUser=true]' },
       ],
     },
   ],
@@ -76,22 +261,20 @@
     },
 
     {
-      id: 'com.zhihu.android',
-      name: '知乎',
+      id: 'com.taobao.taobao',
+      name: '淘宝',
       groups: [
         {
           key: 0,
-          name: '位置权限引导',
-          // 这是权限引导弹窗，不是广告。出现时机不固定在启动瞬间，
-          // 所以不设 matchTime，改用 actionMaximum 限制每次进入应用最多点一次
-          actionMaximum: 1,
+          name: '营销弹窗',
+          // 2026-11-04 实测抓到的特征：那个灰色圆形 × 是 91x91 的 View 容器，
+          // 没有 vid、没有可读 desc，容器里的文字是图标字体字符 "뉜"。
+          // 这是目前唯一能稳定定位它的方式。
+          actionMaximum: 2,
+          actionCd: 1500,
           resetMatch: 'app',
           rules: [
-            // 主选择器：2026-11 版本实测，按钮的 resource-id 短名固定
-            // 弹窗文案：「获得更好的使用体验 / 请允许使用位置信息…」
-            { key: 0, matches: '[vid="location_permission_not_now"]' },
-            // 兜底：改版换了 id 时按文字点，作用是拒绝授权而不是给权限
-            { key: 1, matches: '[text="暂不开启"][clickable=true][visibleToUser=true]' },
+            { key: 0, matches: '[text="뉜"][clickable=true][visibleToUser=true]' },
           ],
         },
       ],
@@ -113,27 +296,4 @@
     //   ],
     // },
   ],
-
-  // ===== 待办：淘宝营销弹窗（2026-11-04 抓到特征，暂未启用）=====
-  // 现象1：冷启动时弹「双11品类周 · 5元红包」大卡片（居中，下方灰色圆形 ×）
-  // 现象2：首页底部常驻横幅「您有5元无门槛惊喜红包 [去使用] [×]」
-  // 特征：关闭叉是 91x91 的容器，位置 (1122,2312)，容器内文字是图标字体字符 "뉜"，
-  //       没有 vid，也没有可读的 desc，只能靠这个字符定位
-  // 启用方式：取消下面整段的注释，并移进上面的 apps 数组
-  //
-  // {
-  //   id: 'com.taobao.taobao',
-  //   name: '淘宝',
-  //   groups: [
-  //     {
-  //       key: 0,
-  //       name: '营销弹窗',
-  //       actionMaximum: 1,
-  //       resetMatch: 'app',
-  //       rules: [
-  //         { key: 0, matches: '[text="뉜"][clickable=true]' },
-  //       ],
-  //     },
-  //   ],
-  // },
 }
