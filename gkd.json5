@@ -1,7 +1,7 @@
 {
  "id": 860412,
  "name": "ghost 自制规则",
- "version": 15,
+ "version": 16,
  "author": "ghosttsm",
  "updateUrl": "https://ghfast.top/https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5",
  "checkUpdateUrl": "https://ghfast.top/https://raw.githubusercontent.com/ghosttsm/gkd-rules/main/gkd.json5",
@@ -55,7 +55,7 @@
   {
    "key": 100,
    "name": "更新提示",
-   "desc": "关闭应用更新提示弹窗｜ghost 启用：一律不更新，已排除银行",
+   "desc": "关闭应用更新提示弹窗",
    "enable": true,
    "order": -8,
    "disableIfAppGroupMatch": "更新提示",
@@ -165,93 +165,13 @@
     {
      "id": "com.oplus.appdetail",
      "enable": false
-    },
-    {
-     "id": "cmb.pb",
-     "enable": false
-    },
-    {
-     "id": "com.alipay.antbank.hk.portal",
-     "enable": false
-    },
-    {
-     "id": "com.android.bankabc",
-     "enable": false
-    },
-    {
-     "id": "com.bankcomm.Bankcomm",
-     "enable": false
-    },
-    {
-     "id": "com.bochk.app.aos",
-     "enable": false
-    },
-    {
-     "id": "com.cebbank.mobile.cemb",
-     "enable": false
-    },
-    {
-     "id": "com.chinamworld.bocmbci",
-     "enable": false
-    },
-    {
-     "id": "com.chinamworld.main",
-     "enable": false
-    },
-    {
-     "id": "com.ecitic.bank.mobile",
-     "enable": false
-    },
-    {
-     "id": "com.hnnx.mmbank",
-     "enable": false
-    },
-    {
-     "id": "com.hnnx.pmbank",
-     "enable": false
-    },
-    {
-     "id": "com.hxb.mobile.client",
-     "enable": false
-    },
-    {
-     "id": "com.icbc",
-     "enable": false
-    },
-    {
-     "id": "com.pingan.paces.ccms",
-     "enable": false
-    },
-    {
-     "id": "com.unionpay",
-     "enable": false
-    },
-    {
-     "id": "com.unionpay.tsmservice",
-     "enable": false
-    },
-    {
-     "id": "com.yitong.mbank.psbc",
-     "enable": false
-    },
-    {
-     "id": "com.zhongan.ibank",
-     "enable": false
-    },
-    {
-     "id": "com.zzbank.pibp",
-     "enable": false
-    },
-    {
-     "id": "hk.com.hsbc.hsbchkmobilebanking",
-     "enable": false
     }
    ]
   },
   {
    "key": 101,
    "name": "通知提示",
-   "desc": "! 该规则会自动拒绝 APP 一些申请通知提示，如果有影响请关闭｜ghost 启用：通知权限一律拒绝，已排除银行",
+   "desc": "! 该规则会自动拒绝 APP 一些申请通知提示，如果有影响请关闭",
    "enable": true,
    "order": -6,
    "disableIfAppGroupMatch": "通知提示",
@@ -321,93 +241,13 @@
     {
      "id": "com.mycompany.app.soulbrowser",
      "enable": false
-    },
-    {
-     "id": "cmb.pb",
-     "enable": false
-    },
-    {
-     "id": "com.alipay.antbank.hk.portal",
-     "enable": false
-    },
-    {
-     "id": "com.android.bankabc",
-     "enable": false
-    },
-    {
-     "id": "com.bankcomm.Bankcomm",
-     "enable": false
-    },
-    {
-     "id": "com.bochk.app.aos",
-     "enable": false
-    },
-    {
-     "id": "com.cebbank.mobile.cemb",
-     "enable": false
-    },
-    {
-     "id": "com.chinamworld.bocmbci",
-     "enable": false
-    },
-    {
-     "id": "com.chinamworld.main",
-     "enable": false
-    },
-    {
-     "id": "com.ecitic.bank.mobile",
-     "enable": false
-    },
-    {
-     "id": "com.hnnx.mmbank",
-     "enable": false
-    },
-    {
-     "id": "com.hnnx.pmbank",
-     "enable": false
-    },
-    {
-     "id": "com.hxb.mobile.client",
-     "enable": false
-    },
-    {
-     "id": "com.icbc",
-     "enable": false
-    },
-    {
-     "id": "com.pingan.paces.ccms",
-     "enable": false
-    },
-    {
-     "id": "com.unionpay",
-     "enable": false
-    },
-    {
-     "id": "com.unionpay.tsmservice",
-     "enable": false
-    },
-    {
-     "id": "com.yitong.mbank.psbc",
-     "enable": false
-    },
-    {
-     "id": "com.zhongan.ibank",
-     "enable": false
-    },
-    {
-     "id": "com.zzbank.pibp",
-     "enable": false
-    },
-    {
-     "id": "hk.com.hsbc.hsbchkmobilebanking",
-     "enable": false
     }
    ]
   },
   {
    "key": 102,
    "name": "权限提示",
-   "desc": "! 该规则会自动拒绝 APP 包括但不限于蓝牙、剪切板、通讯录、悬浮窗权限申请弹窗提示，如果有影响请关闭｜ghost 启用：含剪切板在内一律拒绝，已排除银行",
+   "desc": "! 该规则会自动拒绝 APP 包括但不限于蓝牙、剪切板、通讯录、悬浮窗权限申请弹窗提示，如果有影响请关闭",
    "enable": true,
    "order": -4,
    "disableIfAppGroupMatch": "权限提示",
@@ -477,93 +317,13 @@
     {
      "id": "com.mycompany.app.soulbrowser",
      "enable": false
-    },
-    {
-     "id": "cmb.pb",
-     "enable": false
-    },
-    {
-     "id": "com.alipay.antbank.hk.portal",
-     "enable": false
-    },
-    {
-     "id": "com.android.bankabc",
-     "enable": false
-    },
-    {
-     "id": "com.bankcomm.Bankcomm",
-     "enable": false
-    },
-    {
-     "id": "com.bochk.app.aos",
-     "enable": false
-    },
-    {
-     "id": "com.cebbank.mobile.cemb",
-     "enable": false
-    },
-    {
-     "id": "com.chinamworld.bocmbci",
-     "enable": false
-    },
-    {
-     "id": "com.chinamworld.main",
-     "enable": false
-    },
-    {
-     "id": "com.ecitic.bank.mobile",
-     "enable": false
-    },
-    {
-     "id": "com.hnnx.mmbank",
-     "enable": false
-    },
-    {
-     "id": "com.hnnx.pmbank",
-     "enable": false
-    },
-    {
-     "id": "com.hxb.mobile.client",
-     "enable": false
-    },
-    {
-     "id": "com.icbc",
-     "enable": false
-    },
-    {
-     "id": "com.pingan.paces.ccms",
-     "enable": false
-    },
-    {
-     "id": "com.unionpay",
-     "enable": false
-    },
-    {
-     "id": "com.unionpay.tsmservice",
-     "enable": false
-    },
-    {
-     "id": "com.yitong.mbank.psbc",
-     "enable": false
-    },
-    {
-     "id": "com.zhongan.ibank",
-     "enable": false
-    },
-    {
-     "id": "com.zzbank.pibp",
-     "enable": false
-    },
-    {
-     "id": "hk.com.hsbc.hsbchkmobilebanking",
-     "enable": false
     }
    ]
   },
   {
    "key": 103,
    "name": "定位提示",
-   "desc": "! 该规则会自动拒绝 APP 的位置权限申请弹窗提示，如果有影响请关闭｜ghost 启用：定位一律不允许，已排除银行",
+   "desc": "! 该规则会自动拒绝 APP 的位置权限申请弹窗提示，如果有影响请关闭",
    "enable": true,
    "order": -5,
    "disableIfAppGroupMatch": "定位提示",
@@ -633,310 +393,6 @@
     {
      "id": "com.mycompany.app.soulbrowser",
      "enable": false
-    },
-    {
-     "id": "cmb.pb",
-     "enable": false
-    },
-    {
-     "id": "com.alipay.antbank.hk.portal",
-     "enable": false
-    },
-    {
-     "id": "com.android.bankabc",
-     "enable": false
-    },
-    {
-     "id": "com.bankcomm.Bankcomm",
-     "enable": false
-    },
-    {
-     "id": "com.bochk.app.aos",
-     "enable": false
-    },
-    {
-     "id": "com.cebbank.mobile.cemb",
-     "enable": false
-    },
-    {
-     "id": "com.chinamworld.bocmbci",
-     "enable": false
-    },
-    {
-     "id": "com.chinamworld.main",
-     "enable": false
-    },
-    {
-     "id": "com.ecitic.bank.mobile",
-     "enable": false
-    },
-    {
-     "id": "com.hnnx.mmbank",
-     "enable": false
-    },
-    {
-     "id": "com.hnnx.pmbank",
-     "enable": false
-    },
-    {
-     "id": "com.hxb.mobile.client",
-     "enable": false
-    },
-    {
-     "id": "com.icbc",
-     "enable": false
-    },
-    {
-     "id": "com.pingan.paces.ccms",
-     "enable": false
-    },
-    {
-     "id": "com.unionpay",
-     "enable": false
-    },
-    {
-     "id": "com.unionpay.tsmservice",
-     "enable": false
-    },
-    {
-     "id": "com.yitong.mbank.psbc",
-     "enable": false
-    },
-    {
-     "id": "com.zhongan.ibank",
-     "enable": false
-    },
-    {
-     "id": "com.zzbank.pibp",
-     "enable": false
-    },
-    {
-     "id": "hk.com.hsbc.hsbchkmobilebanking",
-     "enable": false
-    }
-   ]
-  },
-  {
-   "key": 104,
-   "name": "营销弹窗",
-   "desc": "! 关闭营销活动弹窗，一律走放弃/关闭分支，绝不点领取",
-   "enable": true,
-   "order": -7,
-   "disableIfAppGroupMatch": "营销弹窗",
-   "actionMaximum": 2,
-   "matchTime": 10000,
-   "forcedTime": 10000,
-   "resetMatch": "activity",
-   "actionCdKey": 0,
-   "actionMaximumKey": 0,
-   "apps": [
-    {
-     "id": "com.tencent.mm",
-     "enable": false
-    },
-    {
-     "id": "li.songe.gkd",
-     "enable": false
-    },
-    {
-     "id": "mark.via",
-     "enable": false
-    },
-    {
-     "id": "mark.via.gp",
-     "enable": false
-    },
-    {
-     "id": "com.mmbox.xbrowser",
-     "enable": false
-    },
-    {
-     "id": "com.mmbox.xbrowser.pro",
-     "enable": false
-    },
-    {
-     "id": "com.mycompany.app.soulbrowser",
-     "enable": false
-    },
-    {
-     "id": "cmb.pb",
-     "enable": false
-    },
-    {
-     "id": "com.alipay.antbank.hk.portal",
-     "enable": false
-    },
-    {
-     "id": "com.android.bankabc",
-     "enable": false
-    },
-    {
-     "id": "com.bankcomm.Bankcomm",
-     "enable": false
-    },
-    {
-     "id": "com.bochk.app.aos",
-     "enable": false
-    },
-    {
-     "id": "com.cebbank.mobile.cemb",
-     "enable": false
-    },
-    {
-     "id": "com.chinamworld.bocmbci",
-     "enable": false
-    },
-    {
-     "id": "com.chinamworld.main",
-     "enable": false
-    },
-    {
-     "id": "com.ecitic.bank.mobile",
-     "enable": false
-    },
-    {
-     "id": "com.hnnx.mmbank",
-     "enable": false
-    },
-    {
-     "id": "com.hnnx.pmbank",
-     "enable": false
-    },
-    {
-     "id": "com.hxb.mobile.client",
-     "enable": false
-    },
-    {
-     "id": "com.icbc",
-     "enable": false
-    },
-    {
-     "id": "com.pingan.paces.ccms",
-     "enable": false
-    },
-    {
-     "id": "com.unionpay",
-     "enable": false
-    },
-    {
-     "id": "com.unionpay.tsmservice",
-     "enable": false
-    },
-    {
-     "id": "com.yitong.mbank.psbc",
-     "enable": false
-    },
-    {
-     "id": "com.zhongan.ibank",
-     "enable": false
-    },
-    {
-     "id": "com.zzbank.pibp",
-     "enable": false
-    },
-    {
-     "id": "hk.com.hsbc.hsbchkmobilebanking",
-     "enable": false
-    }
-   ],
-   "rules": [
-    {
-     "key": 0,
-     "name": "放弃领取",
-     "excludeMatches": [
-      "[id~=\"(?is).*search.*\"] < * > [(id~=\"(?is).*clear.*\")||(id~=\"(?is).*close.*\")||(id~=\"(?is).*back.*\")||(text~=\"(?is).*取消.*\")][height>0&&width>0][top>0&&left>0]",
-      "[text=\"关闭\"][visibleToUser=true] < * > [text*=\"搜索\"||text*=\"查找\"]"
-     ],
-     "matches": [
-      "[text=\"残忍离开\"][name!$=\".CheckBox\"][name!$=\".EditText\"][name!$=\".ProgressBar\"][childCount=0][visibleToUser=true][height>0&&width>0&&width<500&&height<300][top>0&&left>0]",
-      "[text=\"放弃奖励\"||text=\"放弃优惠\"||text=\"放弃领取\"||text=\"放弃机会\"][name!$=\".CheckBox\"][name!$=\".EditText\"][name!$=\".ProgressBar\"][childCount=0][visibleToUser=true][height>0&&width>0&&width<500&&height<300][top>0&&left>0]",
-      "[text=\"不感兴趣\"||text=\"不想要\"||text=\"不需要\"][name!$=\".CheckBox\"][name!$=\".EditText\"][name!$=\".ProgressBar\"][childCount=0][visibleToUser=true][height>0&&width>0&&width<500&&height<300][top>0&&left>0]",
-      "[text=\"我再想想\"||text=\"以后再说\"||text=\"下次再说\"][name!$=\".CheckBox\"][name!$=\".EditText\"][name!$=\".ProgressBar\"][childCount=0][visibleToUser=true][height>0&&width>0&&width<500&&height<300][top>0&&left>0]",
-      "[text*=\"暂不需要\"||text*=\"暂不购买\"||text*=\"暂不领取\"||text*=\"暂不参与\"][name!$=\".CheckBox\"][name!$=\".EditText\"][name!$=\".ProgressBar\"][childCount=0][visibleToUser=true][height>0&&width>0&&width<500&&height<300][top>0&&left>0]",
-      "[text=\"我知道了\"||text=\"知道了\"||text=\"我已知晓\"][name!$=\".CheckBox\"][name!$=\".EditText\"][name!$=\".ProgressBar\"][childCount=0][visibleToUser=true][height>0&&width>0&&width<500&&height<300][top>0&&left>0]"
-     ]
-    },
-    {
-     "key": 1,
-     "name": "点击关闭",
-     "excludeMatches": [
-      "[id~=\"(?is).*search.*\"] < * > [(id~=\"(?is).*clear.*\")||(id~=\"(?is).*close.*\")||(id~=\"(?is).*back.*\")||(text~=\"(?is).*取消.*\")][height>0&&width>0][top>0&&left>0]",
-      "[text=\"关闭\"][visibleToUser=true] < * > [text*=\"搜索\"||text*=\"查找\"]"
-     ],
-     "matches": [
-      "[id~=\"(?is).*(iv|img|btn)?_?close$\"||id~=\"(?is).*close_(iv|img|btn)$\"][name!$=\".CheckBox\"][name!$=\".EditText\"][name!$=\".ProgressBar\"][childCount=0][visibleToUser=true][height>0&&width>0&&width<500&&height<300][top>0&&left>0]",
-      "[desc=\"关闭\"||desc=\"close\"||desc=\"Close\"][name!$=\".CheckBox\"][name!$=\".EditText\"][name!$=\".ProgressBar\"][childCount=0][visibleToUser=true][height>0&&width>0&&width<500&&height<300][top>0&&left>0]"
-     ]
-    }
-   ]
-  }
- ],
- "apps": [
-  {
-   "id": "gov.pianzong.androidnga",
-   "name": "NGA玩家社区",
-   "groups": [
-    {
-     "key": 106,
-     "name": "开屏广告",
-     "actionMaximum": 1,
-     "matchTime": 15000,
-     "resetMatch": "app",
-     "rules": [
-      {
-       "key": 0,
-       "matches": "[vid=\"tv_skip\"]"
-      },
-      {
-       "key": 1,
-       "matches": "[text*=\"跳过\"][text.length<10]"
-      }
-     ],
-     "desc": "精确 id 优先，文字兜底"
-    }
-   ]
-  },
-  {
-   "id": "com.taobao.taobao",
-   "name": "淘宝",
-   "groups": [
-    {
-     "key": 107,
-     "name": "营销弹窗",
-     "actionMaximum": 3,
-     "matchTime": 25000,
-     "resetMatch": "app",
-     "rules": [
-      {
-       "key": 0,
-       "matches": "[text=\"뉜\"][visibleToUser=true]"
-      }
-     ],
-     "desc": "那个灰色圆形 × 是 91x91 的 FrameLayout，无 id 无 desc，唯一文字是图标字体字符 뉜。该 TextView 自身不可点击，不能加 clickable=true，GKD 会自动点最近的可点击祖先"
-    }
-   ]
-  },
-  {
-   "id": "com.hupu.games",
-   "name": "虎扑",
-   "groups": [
-    {
-     "key": 108,
-     "name": "开屏广告",
-     "actionMaximum": 1,
-     "matchTime": 20000,
-     "resetMatch": "app",
-     "rules": [
-      {
-       "key": 0,
-       "matches": "[vid=\"tv_time\"]"
-      },
-      {
-       "key": 1,
-       "matches": "[text=\"跳过广告\"][visibleToUser=true]"
-      }
-     ],
-     "desc": "实测节点 text=跳过广告 id=tv_time clickable=true bounds=[880,2351][1160,2465]，位置在屏幕底部而非右上角。广告是视频形态、界面持续刷新，命中率不如普通弹窗"
     }
    ]
   }
